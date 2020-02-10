@@ -5,11 +5,12 @@ Persons App is a Maven’s project created using the Eclipse IDE. The applicatio
 
 The applications support add, edit, delete, get and get list options for the Persons details.
 
-GitHub Project URL
+<b>GitHub Project URL</b>
 
-https://github.com/anusha-guna/embl_user_app.git
+https://github.com/anusha-guna/embl_person_app.git
 
-Packages
+
+<b>Packages</b>
 
 1. Spring version 2.1.2
 
@@ -25,20 +26,58 @@ There are several ways to run the project. An ideal way would be clone the GIT r
 
 There are 2 user roles available in the application.
 
-Admin User: Admin user can perform all operations including write operation.
+<b>Admin User:</b> Admin user can perform all operations including write operation.
 
-User: Users having User role can perform only GET/READ operation. Username/Password to perform the CRUD operation is embladmin/password. Username/Password to perform USER role operation us embluser/password. Importing in Eclipse IDE
+<b>User:<b> Users having User role can perform only GET/READ operation. Username/Password to perform the CRUD operation is embladmin/password. Username/Password to perform USER role operation us embluser/password. Importing in Eclipse IDE
 
-The Persons application can be cloned from the GitHub repo and can be imported to Eclipse manually as well. Please follow the below method to manually import the porject. Please import the project in Eclipse using File->Open Projects from File System menu and use the eMaven project wizard to import the project. Once the project is imported to Eclipse, please run the App.java to start the project. API Documentation for REST API Client like Postman
+The Persons application can be cloned from the GitHub repo and can be imported to Eclipse manually as well. Please follow the below method to manually import the porject. Please import the project in Eclipse using File->Open Projects from File System menu and use the eMaven project wizard to import the project. Once the project is imported to Eclipse, please run the App.java to start the project.
+
+API Documentation for REST API Client like Postman
 
 1. Get All Person List from Database:
 
 http://localhost:8080/persons/
 
 Expected Result:
-
-{ "persons": [ { "id": 7, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" }, { "id": 8, "age": 34, "favColor": "Black", "hobbyList": [ "Cricket", "Joggin" ], "fname": "Peter", "lastName": "White" }, { "id": 9, "age": 34, "favColor": "Grey", "hobbyList": [ "Movies", "Running" ], "fname": "Raj", "lastName": "Kumar" } ] }
-
+```bash
+{
+   "persons":[
+      {
+         "id":7,
+         "age":23,
+         "favColor":"Grey",
+         "hobbyList":[
+            "shopping",
+            "Golf"
+         ],
+         "fname":"Anusha",
+         "lastName":"Guna"
+      },
+      {
+         "id":8,
+         "age":34,
+         "favColor":"Black",
+         "hobbyList":[
+            "Cricket",
+            "Joggin"
+         ],
+         "fname":"Peter",
+         "lastName":"White"
+      },
+      {
+         "id":9,
+         "age":34,
+         "favColor":"Grey",
+         "hobbyList":[
+            "Movies",
+            "Running"
+         ],
+         "fname":"Raj",
+         "lastName":"Kumar"
+      }
+   ]
+}
+```
 2. Get :
 
 http://localhost:8080/persons/{user_id}
@@ -46,8 +85,11 @@ http://localhost:8080/persons/{user_id}
 Example: http://localhost:8080/persons/7
 
 Expected Result:
+```bash
+{ "persons": { "id": 7, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" } }
+```
 
-{ "persons": { "id": 7, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" } } 3. POST : http://localhost:8080/persons Post supports Add operation or Add all operation Person details can be a sing person JSON or multiple persons JSON. Below is the supported format to input the details. Single Person input format { "persons": { "id": 7, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" } } Multiple person input format. [Persons] title is not required. [ { "id": 10, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" }, { "id": 11, "age": 34, "favColor": "Black", "hobbyList": [ "Cricket", "Joggin" ], "fname": "Peter", "lastName": "White" }, { "id": 12, "age": 34, "favColor": "Grey", "hobbyList": [ "Movies", "Running" ], "fname": "Raj", "lastName": "Kumar" } ]
+3. POST : http://localhost:8080/persons Post supports Add operation or Add all operation Person details can be a sing person JSON or multiple persons JSON. Below is the supported format to input the details. Single Person input format { "persons": { "id": 7, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" } } Multiple person input format. [Persons] title is not required. [ { "id": 10, "age": 23, "favColor": "Grey", "hobbyList": [ "shopping", "Golf" ], "fname": "Anusha", "lastName": "Guna" }, { "id": 11, "age": 34, "favColor": "Black", "hobbyList": [ "Cricket", "Joggin" ], "fname": "Peter", "lastName": "White" }, { "id": 12, "age": 34, "favColor": "Grey", "hobbyList": [ "Movies", "Running" ], "fname": "Raj", "lastName": "Kumar" } ]
 
 4. Put : Put performs edit operation. The URL must include the id which needs to be updated in the record.
 
