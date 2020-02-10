@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Started</title>
+</head>
+<body>
+<div>
+  <h1>Welcome </h1>
+</div>
+Select Operation
+<select id="oper">
+  
+  <option selected value="none">Select Option</option>
+  <option value="getall">Get All Users Details</option>
+  <option value="getuser">Get User Details</option>
+  <option value="add">Add User</option>
+  
+  <option value="edit">Edit User</option>
+  <option value="delete">Delete User</option>
+ 
+</select>
+<br>
+<br>
+<div id="getAlluser" class="hide_all">
+    <div id="get" class="hide_all"></div>
+   
+   
+</div>
+<br>
+<br>
+<div id="getUser" class="hide_all">
+	<form id="getUserForm">
+		User Id : <input id="userID" type="number">
+		Submit : <input type="submit"> 
+	</form>
+	<br>
+	<br>
+	<div id="singleGet" class="hide_all"></div>
+	
+</div>
+<br>
+<br>
+<div id="adddiv" class="hide_all">
+	<form id="addUserForm">
+		First Name : <input id="fName" type="text">
+		Last Name : <input id="lName" type="text">
+		 Age : <input id="age" type="number">
+		Favourite Color : <input id="fColor" type="text">
+		Hobby :<input id="hobby" type="text">
+		Submit : <input type="submit"> 
+	</form>
+	<div id="addGet" class="hide_all"></div>
+</div>
+<br>
+<br>
+<div id="editdiv" class="hide_all">
+	<form id="editUserForm">
+	User Id : <input id="edituserID" type="number">
+		First Name : <input id="editfName" type="text">
+		Last Name : <input id="editlName" type="text">
+		 Age : <input id="editage" type="number">
+		Favourite Color : <input id="editfColor" type="text">
+		Hobby :<input id="edithobby" type="text">
+		Submit : <input type="submit"> 
+	</form>
+	<div id="editGet" class="hide_all"></div>
+</div>
+<br>
+<br>
+<div id="deletediv" class="hide_all">
+	<form id="deleteUserForm">
+		User Id : <input id="deluserID" type="number">
+		Submit : <input type="submit"> 
+	</form>
+	<br>
+	<br>
+	<div id="deleteGet" class="hide_all"></div>
+	
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+	jQuery(".hide_all").hide();
+	jQuery("select#oper").change(function(){
+		
+    	jQuery(".hide_all").hide();
+        var selectedVal = $(this).children("option:selected").val();
+        
+        if(selectedVal=='add'){
+        	jQuery("#addGet").text("");
+        	jQuery("#adddiv").show();	
+        	
+        	jQuery("#addGet").show();
+        }
+        else if(selectedVal=='edit'){
+        	jQuery("#editGet").text("");
+        	jQuery("#editdiv").show();
+        	
+        	jQuery("#editGet").show();
+        }
+        else if(selectedVal=='getuser'){
+        	jQuery("#singleGet").text("");
+        	jQuery("#getUser").show();
+        	 
+        	jQuery("#singleGet").show();
+        }
+        else if(selectedVal=='getall'){
+        	jQuery("#get").text("");
+        	jQuery("#getAlluser").show();
+        	jQuery("#get").show();
+        	jQuery.ajax({ 
+	             type: "GET",
+	             dataType: "json",
+	             url: "http://localhost:8080/persons",
+	             beforeSend: function (xhr) {
+	            	    xhr.setRequestHeader ("Authorization", "Basic " + btoa("embladmin" + ":" + "password"));
+	            	},
+	             success: function(data){    
+	            	 jQuery("#get").text(JSON.stringify(data));
+	            	 
+	             }
+	         });
+        }
+        else if(selectedVal=='delete'){
+        	jQuery("#deletediv").show();
+        	jQuery("#deleteGet").show();
+        }
+        
+    });
+	jQuery( "#getUserForm" ).submit(function( event ) {
+		  
+		  event.preventDefault();
+		  var userId=jQuery("#userID").val();
+		  jQuery.ajax({ 
+	             type: "GET",
+	             dataType: "json",
+	             url: "http://localhost:8080/persons/"+userId,
+	             beforeSend: function (xhr) {
+	            	    xhr.setRequestHeader ("Authorization", "Basic " + btoa("embladmin" + ":" + "password"));
+	            	},
+	             success: function(data){ 
+	            	
+	            	 jQuery("#singleGet").text(JSON.stringify(data));	 
+	            } ,error: function(xhr, status, error){
+	                var errorMessage = xhr.status + ': ' + xhr.responseText.message
+	                jQuery("#singleGet").text("");
+	                jQuery("#singleGet").text(xhr.responseText);
+	                
+	            }
+	         });
+		  
+		});
+	
+	jQuery( "#deleteUserForm" ).submit(function( event ) {
+		  
+		  event.preventDefault();
+		  var userId=jQuery("#deluserID").val();
+		  jQuery.ajax({ 
+	             type: "DELETE",
+	             dataType: "json",
+	             url: "http://localhost:8080/persons/"+userId,
+	             beforeSend: function (xhr) {
+	            	    xhr.setRequestHeader ("Authorization", "Basic " + btoa("embladmin" + ":" + "password"));
+	            	},
+	             success: function(data){ 
+	            	
+	            	 jQuery("#deleteGet").text(JSON.stringify(data));	 
+	            } ,error: function(xhr, status, error){
+	                var errorMessage = xhr.status + ': ' + xhr.responseText.message
+	                jQuery("#deleteGet").text("");
+	                jQuery("#deleteGet").text(xhr.responseText);
+	                
+	            }
+	         });
+		  
+		});
+	
+	jQuery( "#editUserForm" ).submit(function( event ) {
+		  
+		  event.preventDefault();
+		  var person = {}; 
+		  var userId=jQuery("#edituserID").val();
+		  var fName=jQuery("#editfName").val();
+		  var lName=jQuery("#editlName").val();
+		  var age=jQuery("#editage").val();
+		  var fColor=jQuery("#editfColor").val();
+		  var hobby=jQuery("#edithobby").val();
+		  console.log(hobby)
+		  var res = hobby.trim().split(",");
+		  console.log(res.length)
+		  person["fname"]=fName;
+		  person["lastName"]=lName;
+		  person["age"]=age;
+		  person["favColor"]=fColor;
+		  if(hobby!="" && res.length>0){
+			  person["hobbyList"]=res;
+		  }
+		  
+		 
+		 
+		  jQuery.ajax({ 
+	             type: "PUT",
+	             dataType: "json",
+	             contentType: "application/json",
+	             accept: "application/json",
+	             data: JSON.stringify(person), 
+	             url: "http://localhost:8080/persons/"+userId,
+	             beforeSend: function (xhr) {
+	            	    xhr.setRequestHeader ("Authorization", "Basic " + btoa("embladmin" + ":" + "password"));
+	            	},
+	             success: function(data){
+	            	
+	            	 jQuery("#editGet").text(JSON.stringify(data));	 
+	            } ,error: function(xhr, status, error){
+	                var errorMessage = xhr.status + ': ' + xhr.responseText.message
+	                jQuery("#editGet").text("");
+	                jQuery("#editGet").text(xhr.responseText);
+	                
+	            }
+	         });
+		  
+		});
+	
+	jQuery( "#addUserForm" ).submit(function( event ) {
+		  
+		  event.preventDefault();
+		  var person = {}; 
+		  var fName=jQuery("#fName").val();
+		  var lName=jQuery("#lName").val();
+		  var age=jQuery("#age").val();
+		  var fColor=jQuery("#fColor").val();
+		  var hobby=jQuery("#hobby").val();
+		  var res = hobby.split(",");
+		  
+		  person["fname"]=fName;
+		  person["lastName"]=lName;
+		  person["age"]=age;
+		  person["favColor"]=fColor;
+		  person["hobbyList"]=res;
+		  var personArr = [];
+		  personArr.push(person);
+		  jQuery.ajax({ 
+	             type: "POST",
+	             dataType: "json",
+	             contentType: "application/json",
+	             accept: "application/json",
+	             data: JSON.stringify(personArr), 
+	             url: "http://localhost:8080/persons",
+	             beforeSend: function (xhr) {
+	            	    xhr.setRequestHeader ("Authorization", "Basic " + btoa("embladmin" + ":" + "password"));
+	            	},
+	             success: function(data){
+	            	
+	            	 jQuery("#addGet").text(JSON.stringify(data));	 
+	            } ,error: function(xhr, status, error){
+	                var errorMessage = xhr.status + ': ' + xhr.responseText.message
+	                jQuery("#addGet").text("");
+	                jQuery("#addGet").text(xhr.responseText);
+	                
+	            }
+	         });
+		  
+		});
+
+});
+</script>
+</body>
+</html>
