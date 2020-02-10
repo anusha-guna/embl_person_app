@@ -214,7 +214,7 @@ Input:
 
 <p>URL : http://localhost:8080/persons/1</p>
 
-Expected Result:
+Output:
 
 ```bash
 { 
