@@ -9,6 +9,13 @@
 
 https://github.com/anusha-guna/embl_person_app.git
 
+<b>Docker Container</b><br>
+<p>Persons Application is available as a Docker container as well. Please login into your Docker account and follow the below steps to run the Docker container.</p>
+
+```bash
+docker pull anushagunasekaran/embl_person_app
+docker run -p 8080:8080 anushagunasekaran/embl_person_app
+```
 
 <b>Packages</b>
 1. Spring version 2.1.2
