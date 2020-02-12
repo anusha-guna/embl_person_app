@@ -1,7 +1,7 @@
 <h1>Person Application</h1>
 <p>Person application is a web and REST API based application to perform read,write and delete operations of various details about a person such as first name,last name,favourite color, age, hobbies.</p>
 
-<p>Persons App is a Maven’s project created using the Eclipse IDE. The application is developed using Spring framework with a H2 in-memory database at the backend with authentication. The Application uses Ajax/JQuery scripting front end  to perform CRUD operations. It supports REST Shell interface to perform CLI operations. 
+<p>Persons App is a Maven’s project created using the Eclipse IDE. The application is developed using Spring Boot framework with a H2 in-memory database at the backend with authentication. The Application uses Ajax/JQuery scripting front end  to perform CRUD operations. It supports REST Shell interface to perform CLI operations. 
 </p>
 <p>The applications support GET,POST,PUT and DELETE options for the Persons details.</p>
 
